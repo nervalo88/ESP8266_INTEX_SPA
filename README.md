@@ -21,19 +21,20 @@ Solder 3 wires to get Water pump, heater and jet pump states on R1, R2 & R3 (mic
 TODO : Add picture
 
 ### Add your own electronics
-- 1x ESP8266 Wemos D1 mini
-- 1x Dual relay PCB
-- 1x DS18B20 temperature sensor
+* 1x ESP8266 Wemos D1 mini
+* 1x Dual relay PCB
+* 1x DS18B20 temperature sensor
 
 All the above were attached with jumper wires and glued to the Main board cover.
 TODO : Add picture
 
 
 ##References:
-- @ripleyXLR8 reverse engineering of the main board (working principles and wiring), Thanks !
+* @ripleyXLR8 reverse engineering of the main board (working principles and wiring), Thanks !
 https://github.com/ripleyXLR8/intex-SSP-H-20-1-ESP32_spa_manager
-- Found somebody whom reverse engineered the control board signal through 74HC595 shift registers, but unable to retrieve link...
+* Found somebody whom reverse engineered the control board signal through 74HC595 shift registers, but unable to retrieve link...
 
 Suitable to retrieve 7-segments display, but not to issue commands (display & buttons are muxed and some kind of scan sequence is issued by the main board after a single pin state change).
-- [FR] general dicussion about attaching ESP to the intex SPA
+
+* [FR] general dicussion about attaching ESP to the intex SPA
 https://www.jeedom.com/forum/viewtopic.php?t=19832
