@@ -16,15 +16,20 @@ input	Heater	    gris	HV1	            D0	16
         ...pour le moment c'est un exemple !...
 */
 
-// the setup function runs once when you press reset or power the board
-// Include the libraries we need
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>
+#include "topSecret.h"
 
-// Data wire is plugged into port 2 on the Arduino
-#define ONE_WIRE_BUS 13
+ESP8266WebServer server(80);
 
-// Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
+
+
+#define ONE_WIRE_BUS 13 //D7
+
 OneWire oneWire(ONE_WIRE_BUS);
 
 // Pass our oneWire reference to Dallas Temperature. 
@@ -39,6 +44,7 @@ void setup(void)
     Serial.begin(115200);
     Serial.println("Dallas Temperature IC Control Library Demo");
 
+	Serial.println(ssid);
     // Start up the library
     sensors.begin();
     sensors.setResolution(12);

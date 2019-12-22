@@ -1,2 +1,4 @@
 /.vs
 /debug
+/Release
+/__vm
