@@ -27,5 +27,8 @@
     <ClInclude Include="__vm\.GitHub.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="__vm\.ESP8266_INTEX_SPA.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,7 +13,7 @@ input	Heater	    gris	HV1	            D0	16
         JetPump	    Blanc	HV3	            D4	2
         DS18B20                             D7  13
 
-        por le moment c'est un exemple !
+        ...pour le moment c'est un exemple !...
 */
 
 // the setup function runs once when you press reset or power the board
