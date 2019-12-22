@@ -24,6 +24,7 @@ TODO : Add picture
 * 1x ESP8266 Wemos D1 mini
 * 1x Dual relay PCB
 * 1x DS18B20 temperature sensor
+* 1x Quad level converter (SPA is 5V, but ESP needs 3.3V)
 
 All the above were attached with jumper wires and glued to the Main board cover.
 TODO : Add picture
