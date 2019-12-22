@@ -33,5 +33,8 @@
     <ClInclude Include="topSecret.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="pinOut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
