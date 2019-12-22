@@ -9,8 +9,11 @@ The original PCB of the SPA must be hacked : Add relays to control switches, ext
 ## Hacking the INTEX SPA
 DISCLAIMER : of course, the warranty would void after you do this hack. 
 I can not be responsible for any trouble of damage caused by those instruction.
+
 WARNING : There is AC voltage on boards, don't do anything unless you know what you are doing !
+
 WARNING1 : Never ever ever power this circuit directly without a GFCI outlet (differential circuit breaker). Remember this wircuit will be used in a wet environnement. If you don't understand this, please watch this video https://www.youtube.com/watch?v=SHGo-52wCDc&t=63s and get some electrical knowledge about ground protection.
+
 WARNING2 : As water an rain are involved with a SPA, Be attentive for the water tightness of your wiring !
 
 ### Switches board hack :
