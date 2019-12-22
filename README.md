@@ -35,8 +35,7 @@ Solder 3 wires to get Water pump, heater and jet pump states on R3, R4 & R5 (mic
 All the above were attached with jumper wires and glued to the Main board cover.
 TODO : Add picture
 
-
-##References:
+## References:
 * @ripleyXLR8 reverse engineering of the main board (working principles and wiring), Thanks !
 https://github.com/ripleyXLR8/intex-SSP-H-20-1-ESP32_spa_manager
 * Found somebody whom reverse engineered the control board signal through 74HC595 shift registers, but unable to retrieve link...
