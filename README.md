@@ -10,15 +10,18 @@ The original PCB of the SPA must be hacked : Add relays to control switches, ext
 DISCLAIMER : of course, the warranty would void after you do this hack. 
 I can not be responsible for any trouble of damage caused by those instruction.
 WARNING : There is AC voltage on boards, don't do anything unless you know what you are doing !
+WARNING1 : Never ever ever power this circuit directly without a GFCI outlet (differential circuit breaker). Remember this wircuit will be used in a wet environnement. If you don't understand this, please watch this video https://www.youtube.com/watch?v=SHGo-52wCDc&t=63s and get some electrical knowledge about ground protection.
+WARNING2 : As water an rain are involved with a SPA, Be attentive for the water tightness of your wiring !
 
 ### Switches board hack :
 Add 4 wires to buttons PWR and HEATER.
-TODO : Add picture
+![Switches](/Hack_Pictures/IMG_20191215_160734.jpg)
 
 ### Main board hack
-Solder 3 wires to get Water pump, heater and jet pump states on R1, R2 & R3 (microcontroller side).
+Solder 3 wires to get Water pump, heater and jet pump states on R3, R4 & R5 (microcontroller side).
 5V DC supply is taken directy from the board headers
-TODO : Add picture
+
+![MainBoardWires](/Hack_Pictures/IMG_20191215_152130.jpg)
 
 ### Add your own electronics
 * 1x ESP8266 Wemos D1 mini
