@@ -24,31 +24,36 @@ OneWire oneWire(DS18B20_BUS);
 DallasTemperature tempSensors(&oneWire);
 
 void handleRoot() {
-	char temp[400];
+	char temp[600];
 	int sec = millis() / 1000;
 	int min = sec / 60;
 	int hr = min / 60;
 
-	snprintf(temp, 400,
+	snprintf(temp, 600,
 
 		"<html>\
-  <head>\
-    <meta http-equiv='refresh' content='5'/>\
-    <title>ESP8266 Demo</title>\
-    <style>\
-      body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; Color: #000088; }\
-    </style>\
-  </head>\
-  <body>\
-    <h1>Hello from ESP8266!</h1>\
-    <p>Uptime: %02d:%02d:%02d</p>\
-    <img src=\"/test.svg\" />\
-  </body>\
-</html>",
+			<head>\
+		    <meta http-equiv='refresh' content='5'/>\
+			<title>INTEX SPA</title>\
+			<link href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">\
+			</head>\
+			<body>\
+			<h1>INTEX SPA ESP8266 Host</h1>\
+			<h3>Controls</h3>\
+			<a href=\"/heat\"> Heater </a>\
+			<a href=\"/power\"> Power </a>\
+			<h3>Status</h3>\
+			<p> Temp : %3.2f </p>\
+			<p> Pump : %d </p>\
+			<p> Heat : %d </p>\
+			<p> Bubbles : %d </p>\
+			<em>Copyright Nervalo88</em>\
+			</body>\
+		</html>",
+		getTemperature(), digitalRead(IN_FILTERING), digitalRead(IN_HEATER), digitalRead(IN_JET_PUMP)
+	);
 
-hr, min % 60, sec % 60
-);
-	server.send(200, "text/html", temp);
+		server.send(200, "text/html", temp);
 }
 
 void handleNotFound() {
@@ -89,18 +94,22 @@ void switchHeat() {
 
 }
 
+float getTemperature() {
+	//get temperature
+	tempSensors.requestTemperatures();
+	float tempC = tempSensors.getTempCByIndex(0);
+	if (tempC == DEVICE_DISCONNECTED_C)
+	{
+		Serial.println("ERROR: Could not read temperature data");
+	}
+	return tempC;
+}
+
 void sendStatus() {
 
 	char out[400];
 
-	//get temperature
-	tempSensors.requestTemperatures(); 
-	float tempC = tempSensors.getTempCByIndex(0);
-	if (tempC == DEVICE_DISCONNECTED_C)
-	{
-		server.send(200,"text/html","Error: Could not read temperature data");
-		return;
-	}
+	
 	
 	int pumpState = digitalRead(IN_FILTERING);
 	int heatState = digitalRead(IN_HEATER);
@@ -112,7 +121,7 @@ void sendStatus() {
 			\"pump\" : %d\,\
 			\"heat\" : %d\,\
 			\"bubble\" : %d\
-		}",tempC,pumpState,heatState,bubbleState);
+		}",getTemperature(),pumpState,heatState,bubbleState);
 
 	server.send(200, "application/json", out);
 }
