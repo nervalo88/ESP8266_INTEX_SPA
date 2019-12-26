@@ -25,7 +25,7 @@ Solder 3 wires to get Water pump, heater and jet pump states on R3, R4 & R5 (mic
 ![MainBoardWires](/Hack_Pictures/StateOuts.png)
 
 5V DC supply is taken directy from the board headers
-![PowerSupply](/Hack_Pictures/StateOuts.png)
+![PowerSupply](/Hack_Pictures/5VPowerSupply.png)
 
 
 ### Add your own electronics
@@ -35,7 +35,27 @@ Solder 3 wires to get Water pump, heater and jet pump states on R3, R4 & R5 (mic
 * 1x Quad level converter (SPA is 5V, but ESP needs 3.3V)
 
 All the above were attached with jumper wires and glued to the Main board cover.
-TODO : Add picture
+![PowerSupply](/Hack_Pictures/AddElectronics.pptx.png)
+
+## Usage
+### HTML REQUESTS
+'''
+http://<ESP8266 IP> --> Will provide system overview
+'''
+'''
+http://<ESP8266 IP>/power --> Will push the ON/OFF button for 500ms
+'''
+'''
+http://<ESP8266 IP>/heat --> Will push the Heater button for 500ms
+'''
+*NOTE : Actually, no check of the power state before triggering "heat", will provide no result except relay click if used*
+### JSON status
+'''
+http://<ESP8266 IP>/status --> Will provide main board output status under JSON format
+'''
+
+### Domoticz integration
+See [Domoticz](/Domoticz)
 
 ## References:
 * @ripleyXLR8 reverse engineering of the main board (working principles and wiring), Thanks !
