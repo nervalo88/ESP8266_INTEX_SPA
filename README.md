@@ -1,11 +1,18 @@
-## ESP8266_INTEX_SPA
+# ESP8266_INTEX_SPA
 
 This is a firmware for ESP8266 to expose a INTEX SPA to a domotic system (Domoticz, jeedom...).
+
 Due to the high power consumption of the heater, it is needed to keep it off as much as possible to optimize electricity bill and save our planet.
-As a 1st step, I aimed to start heating the SPA while not at home, thanks to a domotic server.
+
+As a 1st step, I aimed to start heating the SPA while not at home, thanks to a domotic server. 
+
 I'm personally using domoticz, which will be my test system. But this firmware shall be agnostic as based on HTTP requests.
+
 The original PCB of the SPA must be hacked : Add relays to control switches, external DS18B20 for temperature feedback, get status from original PCB outputs.
 
+One of the targets of my project was to keep the existing electronics in order to :
+* keep it safe : galvanic insulation, overheating protection, pump flow control...
+* keep the existing control panel
 
 ## Hacking the INTEX SPA
 DISCLAIMER : of course, the warranty would void after you do this hack. 
