@@ -12,6 +12,7 @@
 #include "pinOut.h"
 
 #include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -23,31 +24,36 @@ OneWire oneWire(DS18B20_BUS);
 DallasTemperature tempSensors(&oneWire);
 
 void handleRoot() {
-	char temp[400];
+	char temp[600];
 	int sec = millis() / 1000;
 	int min = sec / 60;
 	int hr = min / 60;
 
-	snprintf(temp, 400,
+	snprintf(temp, 600,
 
 		"<html>\
-  <head>\
-    <meta http-equiv='refresh' content='5'/>\
-    <title>ESP8266 Demo</title>\
-    <style>\
-      body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; Color: #000088; }\
-    </style>\
-  </head>\
-  <body>\
-    <h1>Hello from ESP8266!</h1>\
-    <p>Uptime: %02d:%02d:%02d</p>\
-    <img src=\"/test.svg\" />\
-  </body>\
-</html>",
+			<head>\
+		    <meta http-equiv='refresh' content='5'/>\
+			<title>INTEX SPA</title>\
+			<link href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">\
+			</head>\
+			<body>\
+			<h1>INTEX SPA ESP8266 Host</h1>\
+			<h3>Controls</h3>\
+			<a href=\"/heat\"> Heater </a>\
+			<a href=\"/power\"> Power </a>\
+			<h3>Status</h3>\
+			<p> Temp : %3.2f </p>\
+			<p> Pump : %d </p>\
+			<p> Heat : %d </p>\
+			<p> Bubbles : %d </p>\
+			<em>Copyright Nervalo88</em>\
+			</body>\
+		</html>",
+		getTemperature(), digitalRead(IN_FILTERING), digitalRead(IN_HEATER), digitalRead(IN_JET_PUMP)
+	);
 
-hr, min % 60, sec % 60
-);
-	server.send(200, "text/html", temp);
+		server.send(200, "text/html", temp);
 }
 
 void handleNotFound() {
@@ -68,26 +74,65 @@ void handleNotFound() {
 	server.send(404, "text/plain", message);
 }
 
-void drawGraph() {
-	String out = "";
-	char temp[100];
-	out += "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"400\" height=\"150\">\n";
-	out += "<rect width=\"400\" height=\"150\" fill=\"rgb(250, 230, 210)\" stroke-width=\"1\" stroke=\"rgb(0, 0, 0)\" />\n";
-	out += "<g stroke=\"black\">\n";
-	int y = rand() % 130;
-	for (int x = 10; x < 390; x += 10) {
-		int y2 = rand() % 130;
-		sprintf(temp, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke-width=\"1\" />\n", x, 140 - y, x + 10, 140 - y2);
-		out += temp;
-		y = y2;
-	}
-	out += "</g>\n</svg>\n";
+void switchPower() {
 
-	server.send(200, "image/svg+xml", out);
+	digitalWrite(OUT_POWER, LOW);
+	delay(500);
+	digitalWrite(OUT_POWER, HIGH);
+
+	server.send(200, "text/html", "Power switched !");
+
+}
+
+void switchHeat() {
+
+	digitalWrite(OUT_HEAT, LOW);
+	delay(500);
+	digitalWrite(OUT_HEAT, HIGH);
+
+	server.send(200, "text/html", "Heater switched !");
+
+}
+
+float getTemperature() {
+	//get temperature
+	tempSensors.requestTemperatures();
+	float tempC = tempSensors.getTempCByIndex(0);
+	if (tempC == DEVICE_DISCONNECTED_C)
+	{
+		Serial.println("ERROR: Could not read temperature data");
+	}
+	return tempC;
+}
+
+void sendStatus() {
+
+	char out[400];
+
+	
+	
+	int pumpState = digitalRead(IN_FILTERING);
+	int heatState = digitalRead(IN_HEATER);
+	int bubbleState = digitalRead(IN_JET_PUMP);
+
+	snprintf(out, 400, 
+		"{\
+			\"temp\" : %3.1f\,\
+			\"pump\" : %d\,\
+			\"heat\" : %d\,\
+			\"bubble\" : %d\
+		}",getTemperature(),pumpState,heatState,bubbleState);
+
+	server.send(200, "application/json", out);
 }
 
 void setup(void)
 {
+	pinMode(OUT_POWER, OUTPUT);
+	digitalWrite(OUT_POWER, HIGH);
+	pinMode(OUT_HEAT, OUTPUT);
+	digitalWrite(OUT_HEAT, HIGH);
+
 	// start serial port
 	Serial.begin(115200);
 
@@ -111,35 +156,26 @@ void setup(void)
 
 	tempSensors.begin();
 	tempSensors.setResolution(12);
+	
+	if (MDNS.begin("esp8266")) {
+		Serial.println("MDNS responder started");
+	}
 
 	server.on("/", handleRoot);
-	server.on("/test.svg", drawGraph);
-	server.on("/inline", []() {
-		server.send(200, "text/plain", "this works as well");
-		});
+	server.on("/power", switchPower);
+	server.on("/heat", switchHeat);
+	server.on("/status", sendStatus);
 	server.onNotFound(handleNotFound);
+
 	server.begin();
+
 	Serial.println("HTTP server started");
 
 }
 
 void loop(void)
 {
-	// call sensors.requestTemperatures() to issue a global temperature 
-	// request to all devices on the bus
-		// 
-	tempSensors.requestTemperatures(); // Send the command to get temperatures
-	// After we got the temperatures, we can print them here.
-	// We use the function ByIndex, and as an example get the temperature from the first sensor only.
-	float tempC = tempSensors.getTempCByIndex(0);
 
-	// Check if reading was successful
-	if (tempC != DEVICE_DISCONNECTED_C)
-	{
-		Serial.printf("%3.1f \n", tempC);
-	}
-	else
-	{
-		Serial.println("Error: Could not read temperature data");
-	}
+
+	server.handleClient();
 }
