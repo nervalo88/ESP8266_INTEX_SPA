@@ -22,9 +22,11 @@ Add 4 wires to buttons PWR and HEATER.
 
 ### Main board hack
 Solder 3 wires to get Water pump, heater and jet pump states on R3, R4 & R5 (microcontroller side).
-5V DC supply is taken directy from the board headers
+![MainBoardWires](/Hack_Pictures/StateOuts.png)
 
-![MainBoardWires](/Hack_Pictures/IMG_20191215_152130.jpg)
+5V DC supply is taken directy from the board headers
+![PowerSupply](/Hack_Pictures/StateOuts.png)
+
 
 ### Add your own electronics
 * 1x ESP8266 Wemos D1 mini
