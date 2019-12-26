@@ -39,20 +39,18 @@ All the above were attached with jumper wires and glued to the Main board cover.
 
 ## Usage
 ### HTML REQUESTS
-'''
-http://<ESP8266 IP> --> Will provide system overview
-'''
-'''
-http://<ESP8266 IP>/power --> Will push the ON/OFF button for 500ms
-'''
-'''
-http://<ESP8266 IP>/heat --> Will push the Heater button for 500ms
-'''
+
+    http://<ESP8266 IP> --> Will provide system overview
+
+    http://<ESP8266 IP>/power --> Will push the ON/OFF button for 500ms
+
+    http://<ESP8266 IP>/heat --> Will push the Heater button for 500ms
 *NOTE : Actually, no check of the power state before triggering "heat", will provide no result except relay click if used*
+
 ### JSON status
-'''
-http://<ESP8266 IP>/status --> Will provide main board output status under JSON format
-'''
+
+    http://<ESP8266 IP>/status --> Will provide main board output status under JSON format
+
 
 ### Domoticz integration
 See [Domoticz](/Domoticz)

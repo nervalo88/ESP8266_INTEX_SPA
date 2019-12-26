@@ -9,7 +9,7 @@
 
 ### Implement the script below to your eventSystem :
 
-'''lua
+    '''lua    
 --
 -- Domoticz passes information to scripts through a number of global tables
 --
@@ -76,4 +76,4 @@ for variableName,variableValue in pairs(uservariables) do
 end
 
 return commandArray
-'''
+    '''    
