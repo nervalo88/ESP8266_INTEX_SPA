@@ -14,12 +14,12 @@ WARNING : There is AC voltage on boards, don't do anything unless you know what 
 
 WARNING1 : Never ever ever power this circuit directly without a GFCI outlet (differential circuit breaker). Remember this circuit will be used in a wet environnement. If you don't understand this, please watch this video https://www.youtube.com/watch?v=SHGo-52wCDc&t=63s and get some electrical knowledge about ground protection.
 
-WARNING2 : As water an outside use (rain, snow, wind...) are involved with a SPA, take care of the water tightness of your wiring !
+WARNING2 : As water and an outside use (rain, snow, wind...) are involved with a SPA, take care of the water tightness of your wiring !
 
 ### Switches board hack :
 Add 4 wires to buttons PWR and HEATER.
 ![Switches](/Hack_Pictures/IMG_20191215_160735.jpg)
-*Yep, I also added a drop of hot glue on the buzzer to make it quieter*
+*Yep, I also added a drop of hot glue on the buzzer to have it quieter*
 
 ### Main board hack
 Solder 3 wires to get Water pump, heater and jet pump states on R3, R4 & R5 (microcontroller side).
@@ -53,7 +53,7 @@ All the above were attached with jumper wires and glued to the Main board cover.
     http://<ESP8266 IP>/status --> Will provide main board output status under JSON format
 
 
-### Domoticz integration
+## Domoticz integration
 See [Domoticz](/Domoticz)
 
 ## References:

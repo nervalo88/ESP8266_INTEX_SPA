@@ -12,30 +12,6 @@
 
 * Implement the Lua script below to your eventSystem (time based) :
 ```lua
---
--- Domoticz passes information to scripts through a number of global tables
---
--- otherdevices, otherdevices_lastupdate and otherdevices_svalues are arrays for all devices: 
---   otherdevices['yourotherdevicename'] = "On"
---   otherdevices_lastupdate['yourotherdevicename'] = "2015-12-27 14:26:40"
---   otherdevices_svalues['yourotherthermometer'] = string of svalues
---
--- uservariables and uservariables_lastupdate are arrays for all user variables: 
---   uservariables['yourvariablename'] = 'Test Value'
---   uservariables_lastupdate['yourvariablename'] = '2015-12-27 11:19:22'
---
--- other useful details are contained in the timeofday table
---   timeofday['Nighttime'] = true or false
---   timeofday['SunriseInMinutes'] = number
---   timeofday['Daytime'] = true or false
---   timeofday['SunsetInMinutes'] = number
---   globalvariables['Security'] = 'Disarmed', 'Armed Home' or 'Armed Away'
---
--- To see examples of commands see: http://www.domoticz.com/wiki/LUA_commands#General
--- To get a list of available values see: http://www.domoticz.com/wiki/LUA_commands#Function_to_dump_all_variables_supplied_to_the_script
---
--- Based on your logic, fill the commandArray with device commands. Device name is case sensitive. 
---
 local http = require("socket.http");
 local json = require("JSON");
 commandArray = {}
@@ -55,30 +31,24 @@ update (45, status.pump, 0)
 update (46, status.heat, 0)
 update (47, status.bubble, 0)
 
--- loop through all the devices
-for deviceName,deviceValue in pairs(otherdevices) do
---    if (deviceName=='myDevice') then
---        if deviceValue == "On" then
---            print("Device is On")
---        elseif deviceValue == "Off" then
---            commandArray['a device name'] = "On"
---            commandArray['Scene:MyScene'] = "Off"
---        end
---    end
-end
-
--- loop through all the variables
-for variableName,variableValue in pairs(uservariables) do
---    if (variableName=='myVariable') then
---        if variableValue == 1 then
---            commandArray['a device name'] = "On"
---            commandArray['Group:My Group'] = "Off AFTER 30"
---        end
---    end
-end
-
 return commandArray
 ```
 
 * Adapt IDXs to your domoticz setup in ```update(IDX,nValue,sValue)``` calls.
 * Set your ESP8266 IP  to ```http.request("http://<YOUR ESP IP>/status")```
+
+### Lua dependancies
+JSON and luaSocket are not available into Domoticz by default (https://install.domoticz.com/ on raspbian). 
+
+1. Download packages [here](https://www.domoticz.com/forum/viewtopic.php?f=21&t=7279)
+2. Enter the following commands :
+```bash 
+sudo mkdir -p /usr/local/share/lua/5.2/ #Only needed if this directory does not exist
+cd /usr/local/share/lua/5.2/
+sudo tar -xvf ~/temp/usrlocalsharelua52.tar.gz
+sudo mkdir -p /usr/local/lib/lua/5.2/ #Only needed if this directory does not exist
+cd /usr/local/lib/lua/5.2/
+sudo tar -xvf ~/temp/usrlocalliblua52.tar.gz
+```
+
+[Source](https://www.domoticz.com/wiki/Remote_Control_of_Domoticz_by_Telegram_Bot)
