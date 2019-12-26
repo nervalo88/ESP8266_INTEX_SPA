@@ -1,11 +1,12 @@
 # DOMOTICZ Integration
 
-### create 5x virtual switches :
-* Power button (press)
-* Heater button (bress)
-
-* Output states : Water pump, heater, bubbles
-* Temperature sensor
+### Hardware configuration
+1. Create 5x virtual switches :
+    * Power button (press)
+    * Heater button (bress)
+    * Output states : Water pump, heater, bubbles
+2. Create 1x sensor
+    * Temperature sensor
 
 ### Implement the script below to your eventSystem :
 
