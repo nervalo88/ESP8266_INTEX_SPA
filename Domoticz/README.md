@@ -1,15 +1,19 @@
 # DOMOTICZ Integration
 
 ### Hardware configuration
-1. Create 5x virtual switches :
+1. **Create 5x virtual switches** :
     * Power button (press)
     * Heater button (bress)
     * Output states : Water pump, heater, bubbles
-2. Create 1x sensor
+2. **Create 1x sensor**
     * Temperature sensor
 
-### Implement the script below to your eventSystem :
+### Event Lua script configuratio
 
+* Adapt IDXs to your domoticz setup in ```update(IDX,nValue,sValue)``` calls.
+* Set your ESP8266 IP  to ```http.request("http://<YOUR ESP IP>/status")```
+
+* Implement the Lua script below to your eventSystem (time based) :
 ```lua
 --
 -- Domoticz passes information to scripts through a number of global tables
@@ -39,7 +43,7 @@ local http = require("socket.http");
 local json = require("JSON");
 commandArray = {}
 
-body,c,l,h = http.request("http://192.168.0.43/status");
+body,c,l,h = http.request("http://<YOUR ESP IP>/status");
 
 local status = json:decode(body);
 print(status.temp);
