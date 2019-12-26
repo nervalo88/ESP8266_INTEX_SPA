@@ -8,7 +8,7 @@
 2. **Create 1x sensor**
     * Temperature sensor
 
-### Event Lua script configuratio
+### Event Lua script configuration
 
 * Adapt IDXs to your domoticz setup in ```update(IDX,nValue,sValue)``` calls.
 * Set your ESP8266 IP  to ```http.request("http://<YOUR ESP IP>/status")```
