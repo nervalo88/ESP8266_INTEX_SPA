@@ -10,9 +10,6 @@
 
 ### Event Lua script configuration
 
-* Adapt IDXs to your domoticz setup in ```update(IDX,nValue,sValue)``` calls.
-* Set your ESP8266 IP  to ```http.request("http://<YOUR ESP IP>/status")```
-
 * Implement the Lua script below to your eventSystem (time based) :
 ```lua
 --
@@ -82,3 +79,6 @@ end
 
 return commandArray
 ```
+
+* Adapt IDXs to your domoticz setup in ```update(IDX,nValue,sValue)``` calls.
+* Set your ESP8266 IP  to ```http.request("http://<YOUR ESP IP>/status")```
