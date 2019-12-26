@@ -19,6 +19,7 @@ WARNING2 : As water an outside use (rain, snow, wind...) are involved with a SPA
 ### Switches board hack :
 Add 4 wires to buttons PWR and HEATER.
 ![Switches](/Hack_Pictures/IMG_20191215_160734.jpg)
+<img  width="500" src="/Hack_Pictures/IMG_20191215_160735.jpg">
 *Yep, I also added a drop of hot glue on the buzzer to make it quieter*
 
 ### Main board hack
