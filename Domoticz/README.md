@@ -1,5 +1,7 @@
 # DOMOTICZ Integration
 
+## UPDATE : Does not work anymore since domoticz 2020.1 moved to Lua 5.3, compatibility with lua-sockets is currently broken.
+
 ### Hardware configuration
 1. **Create 5x virtual switches** :
     * Power button (press)
@@ -9,6 +11,8 @@
     * Temperature sensor
 
 ### Event Lua script configuration
+
+* Install lua-sockets [(how-to)](https://www.domoticz.com/wiki/Smappee#Installing_Lua_Libraries)
 
 * Implement the Lua script below to your eventSystem (time based) :
 ```lua
